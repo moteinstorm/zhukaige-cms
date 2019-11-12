@@ -1,0 +1,4 @@
+1、Project configuration is not up-to-date with pom.xml. Select: Maven->Update Project... from the project context menu or use Quick Fix.	zhukaige-cms		line 1	Maven Configuration Problem
+ 项目上鼠标右键点击  然后 maven update project 即可。
+ 
+ 
