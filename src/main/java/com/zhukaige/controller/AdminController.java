@@ -23,20 +23,38 @@ import com.zhukaige.service.UserService;
 @RequestMapping("admin")
 public class AdminController {
 	
+	/**
+	 * 
+	 */
 	@Autowired
 	UserService userService;
 	
 	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping("index")
 	public String index() {
 		return "amdin/index";
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping("articles")
 	public String articles() {
 		return "amdin/article/list";
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @param name
+	 * @param page
+	 * @return
+	 */
 	@RequestMapping("users")
 	public String users(HttpServletRequest request,
 			@RequestParam(defaultValue="") String name,

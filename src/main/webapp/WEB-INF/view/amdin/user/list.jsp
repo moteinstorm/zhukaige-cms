@@ -118,7 +118,7 @@ function search(){
 </ul>
 
 <script type="text/javascript">
-	function goPage(page){
+	function goPage(url,page){
 		var url="/admin/users?page="+page + "&name=${name}";
 		$("#content").load(url);
 	}
