@@ -20,6 +20,22 @@ public interface ArticleService {
 	 * @return
 	 */
 	PageInfo<Article> hotList(int page);
+
+	/**
+	 * 根据文章id 获取文章的内容
+	 * @param id
+	 * @return
+	 */
+	Article getById(Integer id);
+
+	/**
+	 * 根据频道或者分类获取文章
+	 * @param chnId
+	 * @param categoryId
+	 * @param page
+	 * @return
+	 */
+	PageInfo<Article> listByCat(int chnId, int categoryId, int page);
 	
 
 }

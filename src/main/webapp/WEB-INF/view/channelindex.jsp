@@ -92,43 +92,13 @@
 			<!-- 中间的内容 -->
 			<div class="col-md-8" style="background:white;minheight:200px" >
 				<div>
-						<hr>
+						
 						
 				</div>
-				
-				<div id="myCarousel" class="carousel slide" style="minheight:200px">
-						<!-- 轮播（Carousel）指标 -->
-						<ol class="carousel-indicators">
-							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-							<li data-target="#myCarousel" data-slide-to="1"></li>
-							<li data-target="#myCarousel" data-slide-to="2"></li>
-						</ol>   
-						<!-- 轮播（Carousel）项目 -->
-						<div class="carousel-inner">
-							<div class="item active">
-								<img height="300px" src="/resource/images/donghua.gif" alt="First slide">
-							</div>
-							<div  class="item">
-								<img height="300px" src="/resource/images/avatar1.jpg" alt="Second slide">
-							</div>
-							<div class="item">
-								<img height="300px" src="/resource/images/bg05.jpg" alt="Third slide">
-							</div>
-						</div>
-						<!-- 轮播（Carousel）导航 -->
-						<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-							<span class="sr-only">Next</span>
-						</a>
-					</div>
 					
 					<!-- 放文章的列表 -->
 					<div >
-						<c:forEach items="${hotList.list}" var="article" >
+						<c:forEach items="${articles.list}" var="article" >
 						<div class=row>
 							<hr>
 							<div class="col-md-2"><img height="80px" width="80px" src="/pic/${article.picture}"></div>
@@ -146,17 +116,17 @@
 						</c:forEach>
 						<div class="row">
 							<ul class="pagination">
-								    <li><a href="/index?page=${hotList.prePage}">&laquo;</a></li>
-								    <c:forEach begin="${hotList.pageNum-2 > 1 ? hotList.pageNum-2:1}" end="${hotList.pageNum+2 > hotList.pages ? hotList.pages:hotList.pageNum+2}" varStatus="index">    		
-								    	<c:if test="${hotList.pageNum!=index.index}">
+								    <li><a href="/index?page=${articles.prePage}">&laquo;</a></li>
+								    <c:forEach begin="${articles.pageNum-2 > 1 ? articles.pageNum-2:1}" end="${articles.pageNum+2 > articles.pages ? articles.pages:articles.pageNum+2}" varStatus="index">    		
+								    	<c:if test="${articles.pageNum!=index.index}">
 								    		<li><a href="/index?page=${index.index}">${index.index}</a></li>
 								    	</c:if>
-								    	<c:if test="${hotList.pageNum==index.index}">
+								    	<c:if test="${articles.pageNum==index.index}">
 								    		<li><a href="/index?page=${index.index}"><strong> ${index.index} </strong> </a></li>
 								    	</c:if>
 								    	
 								    </c:forEach>
-								    <li><a href="/index?page=${hotList.nextPage}">&raquo;</a></li>
+								    <li><a href="/index?page=${articles.nextPage}">&raquo;</a></li>
 								</ul>
 						</div>
 					</div>

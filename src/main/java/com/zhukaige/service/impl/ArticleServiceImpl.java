@@ -38,4 +38,17 @@ public class ArticleServiceImpl  implements ArticleService{
 		
 	}
 
+	@Override
+	public Article getById(Integer id) {
+		// TODO Auto-generated method stub
+		return articleMapper.getById(id);
+	}
+
+	@Override
+	public PageInfo<Article> listByCat(int chnId, int categoryId, int page) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(page, ConstantClass.PAGE_SIZE);
+		return new PageInfo<Article>(articleMapper.listByCat(chnId,categoryId));
+	}
+
 }

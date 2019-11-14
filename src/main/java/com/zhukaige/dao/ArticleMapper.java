@@ -2,6 +2,8 @@ package com.zhukaige.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.zhukaige.entity.Article;
 
 public interface ArticleMapper {
@@ -18,5 +20,20 @@ public interface ArticleMapper {
 	 * @return
 	 */
 	List<Article> hostList();
+
+	/**
+	 * 获取文章
+	 * @param id
+	 * @return
+	 */
+	Article getById(Integer id);
+
+	/**
+	 * 根据频道获取文章
+	 * @param chnId
+	 * @param categoryId
+	 * @return
+	 */
+	List<Article> listByCat(@Param("chnId") int chnId,@Param("categoryId") int categoryId);
 
 }

@@ -6,4 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findById" resultType="category">
 		SELECT * FROM cms_category WHERE id=${value}
 	</select>
+	
+	<select id="listByChannelId" resultType="category">
+		SELECT * FROM cms_category WHERE channel_id=${value}
+	</select>
 </mapper>

@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageInfo;
 import com.zhukaige.entity.Article;
+import com.zhukaige.entity.Category;
 import com.zhukaige.entity.Channel;
 import com.zhukaige.service.ArticleService;
+import com.zhukaige.service.CategoryService;
 import com.zhukaige.service.ChannelService;
 
 @Controller
@@ -26,8 +28,43 @@ public class IndexController {
 	
 	
 	@Autowired
+	CategoryService categoryService;
+	
+	
+	@Autowired
 	ArticleService articleService;
 
+	
+	/**
+	 * 
+	 * @param request
+	 * @param chnId  频道id
+	 * @param page  文章页码
+	 * @return
+	 */
+	@RequestMapping( "channel")
+	public String channel(HttpServletRequest request, 
+			@RequestParam(defaultValue = "1") int chnId,
+			@RequestParam(defaultValue = "0") int categoryId,
+			@RequestParam(defaultValue = "1") int page) {
+		
+		//获取所有的频道
+		List<Channel> channels = channelService.list();
+		request.setAttribute("channels", channels);
+		
+		// 获取这个频道下的所有的分类
+		List<Category> categories =  categoryService.listByChannelId(chnId);
+		request.setAttribute("categories", categories);
+		
+		PageInfo<Article> articles=  articleService.listByCat(chnId,categoryId,page);
+		request.setAttribute("articles", articles);
+		
+		
+		
+		return "channelindex";
+	
+	}
+		
 	/**
 	 * 
 	 * @return
