@@ -48,6 +48,11 @@ public class IndexController {
 			@RequestParam(defaultValue = "0") int categoryId,
 			@RequestParam(defaultValue = "1") int page) {
 		
+		
+		// 回传参数数值
+		request.setAttribute("chnId", chnId);
+		request.setAttribute("categoryId", categoryId);
+		
 		//获取所有的频道
 		List<Channel> channels = channelService.list();
 		request.setAttribute("channels", channels);

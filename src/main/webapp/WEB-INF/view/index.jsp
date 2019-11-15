@@ -84,7 +84,8 @@
 					<ul class="list-group menu">
 						<li class="list-group-item active" >热门文章</li>
 						<c:forEach items="${channels}" var="channel" varStatus="index">
-					    	<li class="list-group-item" data="/indexchn?id=${channel.id}">${channel.name}</li>
+					    	<li class="list-group-item" data="/channel?chnId=${channel.id}" >${channel.name}</li>
+					   
 					    </c:forEach>
 					</ul>
 			</div>
@@ -201,12 +202,7 @@
   <div class="container-fluid">
   </div>
 </nav>
-
-<script type="text/javascript">
-	function showArticle(articleId){
-		window.open("/article/showdetail?id="+articleId)
-	}
-</script>
+<script type="text/javascript" src="/resource/js/cms_index.js"></script>
 
 </body>
 </html>

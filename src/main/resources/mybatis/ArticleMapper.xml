@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			FROM cms_article 
 			WHERE deleted=0 AND status=1 AND channel_id=#{chnId}
 			<if test=" categoryId!=0 ">
-				category_id=#{categoryId}
+				AND category_id=#{categoryId}
 			</if>
 			ORDER BY created DESC
 	</select>	
