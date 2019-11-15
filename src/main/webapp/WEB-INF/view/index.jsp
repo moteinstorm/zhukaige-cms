@@ -79,7 +79,7 @@
 	<div class="container" style="minheight:200px" >
 		<div class="row">
 			<!-- 左侧菜单 -->
-			<div class="col-md-2" style="minheight:200px;margin-top:20px" >
+			<div class="col-md-2" style="max:200px;margin-top:20px" >
 				
 					<ul class="list-group menu">
 						<li class="list-group-item active" >热门文章</li>
@@ -107,13 +107,13 @@
 						<!-- 轮播（Carousel）项目 -->
 						<div class="carousel-inner">
 							<div class="item active">
-								<img height="300px" src="/resource/images/donghua.gif" alt="First slide">
+								<img  src="/pic/lunbo1.jpg" style="align:center;width:800px; height:400px;" alt="First slide">
 							</div>
 							<div  class="item">
-								<img height="300px" src="/resource/images/avatar1.jpg" alt="Second slide">
+								<img  src="/pic/lunbo2.jpg" style="width:800px; height:400px;" alt="Second slide">
 							</div>
 							<div class="item">
-								<img height="300px" src="/resource/images/bg05.jpg" alt="Third slide">
+								<img  src="/pic/lunbo3.jpg" style="width:800px; height:400px;" alt="Third slide">
 							</div>
 						</div>
 						<!-- 轮播（Carousel）导航 -->

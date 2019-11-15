@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.zhukaige.common.CmsAssert;
 import com.zhukaige.common.ConstantClass;
+import com.zhukaige.common.Md5;
 import com.zhukaige.dao.UserMapper;
 import com.zhukaige.entity.User;
 import com.zhukaige.service.UserService;
@@ -39,6 +41,33 @@ public class UserServiceImpl implements UserService {
 	public int updateStatus(Integer userId, int status) {
 		// TODO Auto-generated method stub
 		return userMapper.updateStatus(userId,status);
+	}
+
+	@Override
+	public User findByName(String username) {
+		// TODO Auto-generated method stub
+		return userMapper.findByUserName(username);
+	}
+
+	@Override
+	public int register(User user) {
+		
+		// TODO Auto-generated method stub
+		//用户名是否存在
+		User existUser  = findByName(user.getUsername());
+		CmsAssert.AssertTrue(existUser==null,"该用户名已经存在");
+				
+		//加盐
+		user.setPassword(Md5.password(user.getPassword(),
+				user.getUsername().substring(0, 2)));
+		return userMapper.add(user);
+		
+	}
+
+	@Override
+	public User login(User user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
