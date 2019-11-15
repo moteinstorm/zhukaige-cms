@@ -11,6 +11,23 @@ public class TestUser  extends TestBase{
 	UserService userService;
 	
 	@Test
+	public void testLogin() {
+		
+		User user = new User();
+		user.setUsername("zhenhuaiwei");
+		user.setPassword("123456");
+		
+		User login = userService.login(user);
+		if(login==null)
+			System.out.println("登录失败");
+		else {
+			System.out.println("登录成功");
+		}
+		
+		
+	}
+	
+	@Test
 	public void testRegister() {
 		User user = new User();
 		user.setUsername("zhenhuaiwei");

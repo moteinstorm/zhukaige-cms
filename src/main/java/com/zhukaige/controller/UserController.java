@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhukaige.common.CmsAssert;
 import com.zhukaige.common.ConstantClass;
@@ -80,13 +81,16 @@ public class UserController {
 		// 用户存在 登录成功
 		if(loginUser!=null) {
 			request.getSession().setAttribute(ConstantClass.USER_KEY, loginUser);
-			return "redirect:/user/home";
+			return "redirect:/";
 		}else {
 			request.setAttribute("user", user);
 			return "user/login";
 		}
-		
-		
+	}
 	
+	@RequestMapping("checkname")
+	@ResponseBody
+	public boolean checkname(String username) {
+		return null==userService.findByName(username);
 	}
 }
