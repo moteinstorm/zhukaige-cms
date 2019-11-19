@@ -51,4 +51,46 @@ public class ArticleServiceImpl  implements ArticleService{
 		return new PageInfo<Article>(articleMapper.listByCat(chnId,categoryId));
 	}
 
+	@Override
+	public PageInfo<Article> listByUser(int page,Integer userId) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(page, ConstantClass.PAGE_SIZE);
+		return new PageInfo<Article>(articleMapper.listByUser(userId));
+	
+	}
+
+	@Override
+	public int delete(int id) {
+		// TODO Auto-generated method stub
+		return articleMapper.delete(id);
+	}
+
+	/* (non Javadoc) 
+	 * @Title: checkExist
+	 * @Description: TODO
+	 * @param id
+	 * @return 
+	 * @see com.zhukaige.service.ArticleService#checkExist(int) 
+	 */
+	@Override
+	public Article checkExist(int id) {
+		// TODO Auto-generated method stub
+		return  articleMapper.checkExist(id);
+	}
+
+	/* (non Javadoc) 
+	 * @Title: getPageList
+	 * @Description: TODO
+	 * @param status
+	 * @param page
+	 * @return 
+	 * @see com.zhukaige.service.ArticleService#getPageList(int, java.lang.Integer) 
+	 */
+	@Override
+	public PageInfo<Article> getPageList(int status, Integer page) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(page, ConstantClass.PAGE_SIZE);
+		return new PageInfo<Article>(articleMapper.listByStatus(status));
+	}
+
 }

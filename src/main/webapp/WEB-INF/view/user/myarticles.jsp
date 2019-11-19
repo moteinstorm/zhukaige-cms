@@ -10,7 +10,6 @@
       <th width="50%">标题</th>
       <th>频道</th>
       <th>分类</th>
-      <th>作者</th>
       <th>发布日期</th>
       <th>状态</th>
       <th>操作</th>
@@ -23,17 +22,16 @@
 	       <td>${article.title}</td>
 	       <td>${article.channel.name}</td>
 	       <td>${article.category.name}</td>
-	       <td>${article.user.username}</td>
 	       <td><fmt:formatDate value="${article.created}" pattern="yyyy-MM-dd"/></td>
 	       <td>
 	       <c:choose>
-	       	<c:when test="${article.status==0}">
+	       	<c:when test="article.status==0">
 	       		待审核
 	       	</c:when>
-	       	<c:when test="${article.status==1}">
+	       	<c:when test="article.status==1">
 	       		审核通过
 	       	</c:when>
-	       	<c:when test="${article.status==2}">
+	       	<c:when test="article.status==2">
 	       		审核被拒
 	       	</c:when>
 	       	<c:otherwise>
@@ -65,7 +63,7 @@
 <script type="text/javascript">
 
 	function goPage(page){
-		var url="/admin/articles?page="+page ;
+		var url="/user/myarticles?page="+page ;
 		$("#content").load(url);
 	}
 
@@ -73,7 +71,7 @@
 		$.post("/user/delArticle",{id:articleId},function(data){
 			if(data.result==1){
 				alert("删除成功");
-				$("#content").load("/admin/articles?page=${pageInfo.pageNum}");
+				$("#content").load("/user/myarticles?page=${pageInfo.pageNum}");
 			}else{
 				alert(data.errorMsg);
 			}

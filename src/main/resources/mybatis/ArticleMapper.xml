@@ -37,5 +37,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			ORDER BY created DESC
 	</select>	
+	
+	<!-- 根据用户获取文章 -->
+	<select id="listByUser" resultMap="articleMapper">
+		SELECT id,title,picture,channel_id,category_id,hits,commentCnt,created,status
+			FROM cms_article 
+			WHERE deleted=0  AND user_id=#{value}
+			ORDER BY created DESC
+	</select>
+	
+	<select id="listByStatus" resultMap="articleMapper">
+		SELECT id,title,picture,channel_id,category_id,hits,commentCnt,created,status,user_id
+			FROM cms_article 
+			WHERE deleted=0  
+			<if test="value != -1 ">
+				AND status = #{value}
+			</if>
+			ORDER BY created DESC
+	</select>
 				
 </mapper>

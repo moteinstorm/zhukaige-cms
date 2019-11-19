@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.zhukaige.common.MsgResult;
+import com.zhukaige.entity.Article;
 import com.zhukaige.entity.User;
+import com.zhukaige.service.ArticleService;
 import com.zhukaige.service.UserService;
 
 /**
@@ -18,7 +20,6 @@ import com.zhukaige.service.UserService;
  * @author zhuzg
  *
  */
-
 @Controller
 @RequestMapping("admin")
 public class AdminController {
@@ -28,6 +29,9 @@ public class AdminController {
 	 */
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	ArticleService  articleService;
 	
 	
 	/**
@@ -41,12 +45,27 @@ public class AdminController {
 	
 	/**
 	 * 
+	 * @Title: articles 
+	 * @Description: TODO
+	 * @param request
+	 * @param status  -1 全部  0 待审核  1 审核通过  2 审核未通过
+	 * @param page
 	 * @return
+	 * @return: String
 	 */
 	@RequestMapping("articles")
-	public String articles() {
+	public String articles(HttpServletRequest request,
+			@RequestParam(defaultValue="-1") int status,
+			@RequestParam(defaultValue="1") Integer page) {
+		
+		PageInfo<Article> articlePage =  articleService.getPageList(status,page);
+		request.setAttribute("pageInfo", articlePage);
+		request.setAttribute("status", status);
+		
 		return "amdin/article/list";
 	}
+	
+	
 	
 	/**
 	 * 

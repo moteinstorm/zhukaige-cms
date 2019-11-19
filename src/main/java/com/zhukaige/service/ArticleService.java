@@ -36,6 +36,41 @@ public interface ArticleService {
 	 * @return
 	 */
 	PageInfo<Article> listByCat(int chnId, int categoryId, int page);
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	
+	PageInfo<Article> listByUser(int page,Integer userId);
+
+	/**
+	 *删除文章
+	 * @param id
+	 * @return
+	 */
+	int delete(int id);
+
+	/** 
+	 * 判断文章是否存在
+	 * @Title: checkExist 
+	 * @Description: TODO
+	 * @param id
+	 * @return
+	 * @return: Article
+	 */
+	Article checkExist(int id);
+
+	/**  根据状态查询文章
+	 * @Title: getPageList 
+	 * @Description: TODO
+	 * @param status
+	 * @param page
+	 * @return
+	 * @return: PageInfo<Article>
+	 */
+	PageInfo<Article> getPageList(int status, Integer page);
 	
 
 }
