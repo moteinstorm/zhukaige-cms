@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.zhukaige.common.CmsAssert;
 import com.zhukaige.common.MsgResult;
 import com.zhukaige.entity.Article;
 import com.zhukaige.entity.User;
@@ -129,12 +130,46 @@ public class AdminController {
 			return new MsgResult(2,"非常抱歉，处理失败，请与管理员联系！",null);
 		}
 		
-		
-		
-		
-		
-		
-		
+	}
+	
+	@RequestMapping("getArticle")
+	@ResponseBody
+	public MsgResult getArticle(int id) {
+		Article article = articleService.getDetailById(id);
+		CmsAssert.AssertTrue(article!=null, "文章不存在");
+		return new MsgResult(1,"获取成功",article);
+	}
+	
+	@RequestMapping("applyArticle")
+	@ResponseBody
+	public MsgResult applyArticle(int id,int status) {
+		Article article = articleService.checkExist(id);
+		CmsAssert.AssertTrue(article!=null, "该文已经不存在");
+		int result = articleService.apply( id,status);
+		if(result>0) {
+			return new MsgResult(1,"处理成功",null);
+		}else {
+			return new MsgResult(2,"处理失败",null);
+		}
+	}
+	
+	/**
+	 * 设置热门与否
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping("setArticleHot")
+	@ResponseBody
+	public MsgResult setArticleHot(int id,int status) {
+		Article article = articleService.checkExist(id);
+		CmsAssert.AssertTrue(article!=null, "该文已经不存在");
+		int result = articleService.setHot( id,status);
+		if(result>0) {
+			return new MsgResult(1,"处理成功",null);
+		}else {
+			return new MsgResult(2,"处理失败",null);
+		}
 	}
 	
 	

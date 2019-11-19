@@ -55,5 +55,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			ORDER BY created DESC
 	</select>
+	
+	<!-- 管理员获取文章详情 -->
+	<select id="getDetailById" resultMap="articleMapper">
+		SELECT * FROM cms_article 
+		  WHERE id=#{value} AND deleted=0
+	</select>
 				
 </mapper>

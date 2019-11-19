@@ -71,6 +71,29 @@ public interface ArticleService {
 	 * @return: PageInfo<Article>
 	 */
 	PageInfo<Article> getPageList(int status, Integer page);
+
+	/**
+	 * 获取文章详情  不考虑文章的状态
+	 * @param id
+	 * @return
+	 */
+	Article getDetailById(int id);
+
+	/**
+	 * 审核文章
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	int apply(int id, int status);
+
+	/**
+	 * 设置热门与否
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	int setHot(int id, int status);
 	
 
 }

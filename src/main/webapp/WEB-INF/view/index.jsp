@@ -21,6 +21,12 @@
 		background:gray;
 	}
 	
+	.ex {
+		overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
+	}
+	
 	
 </style>
 
@@ -31,8 +37,13 @@
 <nav class="navbar navbar-default">
 	<%@include  file="common/top.jsp" %>
 </nav>
-
+<div class="container-fluid" style="background: url(/pic/banner.jpg)" >
+&nbsp;<br/>
+&nbsp;
+</div>
 <div class="container-fluid" >
+
+	
 	<div class="container" style="minheight:200px" >
 		<div class="row">
 			<!-- 左侧菜单 -->
@@ -123,13 +134,15 @@
 			<!-- 中间的内容结束 -->
 			
 			
-			<div class="col-md-2" style="minheight:200px" >
+			<div class="col-md-2" style=" margin-top:30px ;minheight:200px" >
+			
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<h3 class="panel-title">面板标题</h3>
+						<h3 class="panel-title">公告</h3>
 					</div>
 					<div class="panel-body">
-						这是一个基本的面板
+						<a href="#">1.今天浴池停水</a>
+						<a href="#">2.下午食堂馒头免费</a>
 					</div>
 				</div>
 				
@@ -137,7 +150,7 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">最新文章</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body ex">
 						<c:forEach items="${newArticles}" var="article" varStatus="index">
 							${index.index+1} . <a>${article.title}</a>
 							<br/>

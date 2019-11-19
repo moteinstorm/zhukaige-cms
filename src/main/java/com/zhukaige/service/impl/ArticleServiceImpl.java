@@ -93,4 +93,23 @@ public class ArticleServiceImpl  implements ArticleService{
 		return new PageInfo<Article>(articleMapper.listByStatus(status));
 	}
 
+	@Override
+	public Article getDetailById(int id) {
+		// TODO Auto-generated method stub
+		return  articleMapper.getDetailById(id);
+	}
+
+	@Override
+	public int apply(int id, int status) {
+		// TODO Auto-generated method stub
+		return articleMapper.apply(id,status);
+	}
+
+	
+	@Override
+	public int setHot(int id, int status) {
+		// TODO Auto-generated method stub
+		return articleMapper.setHot(id,status);
+	}
+
 }

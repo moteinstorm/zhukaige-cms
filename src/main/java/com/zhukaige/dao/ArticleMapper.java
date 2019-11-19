@@ -70,4 +70,31 @@ public interface ArticleMapper {
 	 */
 	List<Article> listByStatus(int status);
 
+	/**
+	 * 获取文章详情，不考虑状态
+	 * @param id
+	 * @return
+	 */
+	Article getDetailById(int id);
+
+	/**
+	 *  审核文章 
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	@Update(" UPDATE cms_article SET  status=#{status} "
+			+ " WHERE id=#{id} ")
+	int apply(@Param("id") int id,@Param("status") int status);
+
+	/**
+	 * 设置热门
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	@Update(" UPDATE cms_article SET  hot=#{status} "
+			+ " WHERE id=#{id} ")
+	int setHot(@Param("id") int id,@Param("status") int status);
+
 }
