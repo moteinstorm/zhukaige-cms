@@ -1,21 +1,33 @@
 package com.zhukaige.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageInfo;
 import com.zhukaige.common.CmsAssert;
 import com.zhukaige.common.ConstantClass;
 import com.zhukaige.common.MsgResult;
 import com.zhukaige.entity.Article;
+import com.zhukaige.entity.Channel;
 import com.zhukaige.entity.User;
 import com.zhukaige.service.ArticleService;
+import com.zhukaige.service.ChannelService;
 import com.zhukaige.service.UserService;
 
 
@@ -28,6 +40,13 @@ public class UserController {
 	
 	@Autowired
 	ArticleService articleService;
+	
+	
+	@Autowired
+	ChannelService channelService;
+
+	private SimpleDateFormat dateFormat;
+
 	
 	//  httppxxxx://user/hello
 	@RequestMapping(value="hello",method=RequestMethod.GET)
@@ -125,6 +144,86 @@ public class UserController {
 	public String home(HttpServletRequest request) {
 		return "/user/home";
 	}
+	
+	
+	/**
+	 * 进入发表文章的界面
+	 * @param request
+	 * @return
+	 */
+	@GetMapping("postArticle")
+	public String postArticle(HttpServletRequest request) {
+		
+		// 获取所有的频道
+		List<Channel> channels =  channelService.list();
+		request.setAttribute("channels", channels);
+		return "article/publish";
+	}
+
+	/**
+	 * 上传文件的规则
+	 *  文件扩展名不能改变
+	 *  保存到某个路径下边  要求子目录
+	 *  子目录  每天一个子目录
+	 */
+	
+	/**
+	 * 
+	 * @param file
+	 * @param article
+	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	@PostMapping("postArticle")
+	@ResponseBody
+	public MsgResult postArticle(HttpServletRequest request, MultipartFile file,Article article) throws IllegalStateException, IOException{
+		
+		if(!file.isEmpty()) {
+			String fileUrl = processFile(file);
+			article.setPicture(fileUrl);
+		}
+		User loginUser  = (User)request.getSession().getAttribute(ConstantClass.USER_KEY);
+		article.setUserId(loginUser.getId());
+		
+		int result = articleService.add(article);
+		if(result>0) {
+			return new MsgResult(1, "处理成功",null);
+		}else {
+			return new MsgResult(2, "添加失败，请稍后再试试！",null);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param file
+	 * @return  保存文件的相对路径
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+    private String processFile(MultipartFile file) throws IllegalStateException, IOException {
+    	
+    	//1 求扩展名  "xxx.jpg"
+    	String suffixName =  file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+    	String fileNamePre = UUID.randomUUID().toString();
+    	// 计算出新的文件名称
+    	String fileName = fileNamePre + suffixName;
+    	
+    	dateFormat = new SimpleDateFormat("yyyyMMdd");
+    	String path = dateFormat.format(new Date());
+    	File pathFile  = new File("d:/pic/" + path);
+    	if(!pathFile.exists()) {
+    		pathFile.mkdirs();
+    	}
+    	
+    	// 最终的新的文件名称
+    	String newFileName = "d:/pic/"+ path + "/" + fileName;
+    	file.transferTo(new File(newFileName));
+    	
+    	return path + "/" + fileName ;
+    }
+		
+	
 	
 	/**
 	 * 获取文章列表

@@ -8,6 +8,7 @@
  <link href="/resource/bootstrap/css/bootstrap.css" rel="stylesheet">  
  <script type="text/javascript" src="/resource/js/jquery-3.2.1.js"></script> 
  <script type="text/javascript" src="/resource/bootstrap/js/bootstrap.js"></script>
+ <script type="text/javascript" src="/resource/kindeditor/kindeditor-all.js"></script>
  <title>有花堪折直须折</title>
  
 <body style="background:url(/pic/back2.jpeg) ">
@@ -28,9 +29,16 @@
 			</ul>
 		</div>
 		<div class="col-md-9" id="content">
+		
+				<div id="kindEditor" style="display: none">
+				   <!-- 引入kindEditor的样式 -->
+				  <jsp:include page="/resource/kindeditor/jsp/demo.jsp"></jsp:include>
+              </div>
+              
 			
 		</div>
 	</div>
+ 
 </div>
 <script type="text/javascript">
 	$(".homemenu li").click(function(){

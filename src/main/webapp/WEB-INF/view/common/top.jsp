@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+
+
   	
 <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -36,12 +38,12 @@
        <li><a href="#"><img width="30px" height="30px" src="/resource/images/donghua.gif"/> </a></li>
         <c:choose>
 	        <c:when  test="${sessionScope.SESSION_USER_KEY == null}">
-	        	<li><a href="/user/register">注册</a></li>
-	        	<li><a href="/user/login">登录</a></li>
+	        	<li class="register"><a href="/user/register">注册</a></li>
+	        	<li class="register"><a href="/user/login">登录</a></li>
 	        </c:when>
 	        <c:otherwise>
-		        <li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
+		        <li class="dropdown" id="clsdropDwon">
+		          <a href="#" class="dropdown-toggle clsdropDwon" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
 		          	${sessionScope.SESSION_USER_KEY.username}
 		           <span class="caret"></span></a>
 		         <ul class="dropdown-menu ">
@@ -57,4 +59,25 @@
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
+  
+  <style>
+		
+		#clsdropDwon a{
+			color:#FF0000;
+		}
+		
+		#clsdropDwon a:hover{
+		 	background:#000099;
+			color:#FF9900;
+			font-size:18px;
+		 }
+		 
+		.register a:hover{
+		 	background:#000099!important;;
+			color:#FF9900!important;;
+			font-size:18px!important;;
+		}
+		
+
+</style>
  

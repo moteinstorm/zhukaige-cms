@@ -2,6 +2,7 @@ package com.zhukaige.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
@@ -96,5 +97,20 @@ public interface ArticleMapper {
 	@Update(" UPDATE cms_article SET  hot=#{status} "
 			+ " WHERE id=#{id} ")
 	int setHot(@Param("id") int id,@Param("status") int status);
+
+	/**
+	 * 添加文章
+	 * @param article
+	 * @return
+	 */
+	@Insert("INSERT INTO cms_article("
+			+ " title,content,picture,channel_id,category_id,"
+			+ " user_id,hits,hot,status,deleted,"
+			+ " created,updated,commentCnt,articleType) "
+			+ " values("
+			+ " #{title},#{content},#{picture},#{channelId},#{categoryId},"
+			+ "#{userId},#{hits},#{hot},#{status},#{deleted},"
+			+ "now(),now(),#{commentCnt},#{articleType})")
+	int add(Article article);
 
 }

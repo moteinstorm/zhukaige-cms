@@ -19,6 +19,6 @@ public class ConstantClass {
 	public static final String USER_KEY="SESSION_USER_KEY";
 	
 	
-	public static final int PAGE_SIZE=3;
+	public static final int PAGE_SIZE=10;
 		
 }

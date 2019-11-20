@@ -29,7 +29,8 @@
 <body>
 <!-- 导航条 -->
 <nav class="navbar navbar-default">
-  	<jsp:include page="./common/top.jsp">
+  <%-- 	<jsp:include page="./common/top.jsp"> --%>
+  	<%@ include file="./common/top.jsp" %>
 </nav>
 
 <div class="container-fluid" >

@@ -94,6 +94,13 @@ public interface ArticleService {
 	 * @return
 	 */
 	int setHot(int id, int status);
+
+	/**
+	 * 添加文章
+	 * @param article
+	 * @return
+	 */
+	int add(Article article);
 	
 
 }

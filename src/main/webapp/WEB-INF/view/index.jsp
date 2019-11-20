@@ -18,7 +18,8 @@
 		text-align:center;
 	}
 	.menu li:hover{
-		background:gray;
+		background:#000099;
+		color:#FF9900;
 	}
 	
 	.ex {
@@ -27,20 +28,46 @@
 		white-space: nowrap;
 	}
 	
+	div {
+		background: 3399FF;
+	}
+	
+	.fl{
+		font-size:18px;
+		color: #FF9900;
+	}
+	
 	
 </style>
 
 </head>
 
-<body>
-<!-- 导航条 -->
-<nav class="navbar navbar-default">
+<body style="background:#3399FF;"> 
+	<!-- <audio autoplay="autoplay"   id="myaudio"  loop="loop" preload="auto"  
+      src="/resource/audio/jmszl.mp3"/> -->
+       
+      
+      
+	<!-- 导航条 -->
+<nav class="navbar navbar-default" style="background:#000099">
 	<%@include  file="common/top.jsp" %>
 </nav>
-<div class="container-fluid" style="background: url(/pic/banner.jpg)" >
+
+
+<div class="container-fluid" style="background: url(/pic/banner.jpg) no-repeat; width:100%; height:100%;overflow: hidden;background-size:cover;" >
 &nbsp;<br/>
 &nbsp;
 </div>
+
+<!-- <div class="progress progress-striped ">
+        <div class="progress-bar progress-bar-warning" role="progressbar"
+                 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                 style="width: 20%;">
+                <span class="sr-only">20% 完成（警告）</span>
+        </div>
+</div> -->
+
+
 <div class="container-fluid" >
 
 	
@@ -59,7 +86,7 @@
 			</div>
 			
 			<!-- 中间的内容 -->
-			<div class="col-md-8" style="background:white;minheight:200px" >
+			<div class="col-md-8 thumbnail"  style="border-radius:12px; margin-top:20px;margin-bottom:20px; background:white;minheight:200px" >
 				<div>
 						<hr>
 						
@@ -73,15 +100,15 @@
 							<li data-target="#myCarousel" data-slide-to="2"></li>
 						</ol>   
 						<!-- 轮播（Carousel）项目 -->
-						<div class="carousel-inner">
+						<div class="carousel-inner thumbnail" style="border-radius:12px;">
 							<div class="item active">
-								<img  src="/pic/lunbo1.jpg" style="align:center;width:800px; height:400px;" alt="First slide">
+								<img  class="img-rounded"  src="/resource/images/lunbo1.jpg" style=" border-radius:24px; align:center;width:800px; height:400px;" alt="First slide">
 							</div>
 							<div  class="item">
-								<img  src="/pic/lunbo2.jpg" style="width:800px; height:400px;" alt="Second slide">
+								<img  class="img-rounded" src="/resource/images/lunbo2.jpg"  style="border-radius:24px;width:800px; height:400px;" alt="Second slide">
 							</div>
 							<div class="item">
-								<img  src="/pic/lunbo3.jpg" style="width:800px; height:400px;" alt="Third slide">
+								<img  class="img-rounded" src="/resource/images/lunbo3.jpg" style="border-radius:24px; width:800px; height:400px;" alt="Third slide">
 							</div>
 						</div>
 						<!-- 轮播（Carousel）导航 -->
@@ -98,22 +125,25 @@
 					<!-- 放文章的列表 -->
 					<div >
 						<c:forEach items="${hotList.list}" var="article" >
-						<div class=row>
-							<hr>
-							<div class="col-md-2"><img height="80px" width="80px" src="/pic/${article.picture}"></div>
+						<div class=row style="padding-bottom:1px">
+							<hr width="88%" style="background-color:#D2691E;border:none;height:1px">
+							<div class="col-md-2" style="text-align:right"><img height="80px" width="80px" src="/pic/${article.picture}" onerror="this.src='/resource/images/default-cat.png'" class="img-rounded"></div>
 							<div class="col-md-10">
 								<a href="javascript:showArticle(${article.id})">${article.title}</a>
-								<br>
+								<br><br>
 								 频道：<a>${article.channel.name}</a> &nbsp;&nbsp;
 								 分类：<a>${article.category.name}</a>
 								<br>
-								<br>
+								
 								${article.user.username} 发布于  <fmt:formatDate value="${article.created}" pattern="yyyy-MM-dd"/> 
 							</div>
-							
 						</div>
 						</c:forEach>
-						<div class="row">
+						
+						
+						<div class="row" style="text-align: center;padding-top:1px">
+							<hr width="88%" style="background-color:#D2691E;border:none;height:1px">
+						
 							<ul class="pagination">
 								    <li><a href="/index?page=${hotList.prePage}">&laquo;</a></li>
 								    <c:forEach begin="${hotList.pageNum-2 > 1 ? hotList.pageNum-2:1}" end="${hotList.pageNum+2 > hotList.pages ? hotList.pages:hotList.pageNum+2}" varStatus="index">    		
@@ -142,6 +172,7 @@
 					</div>
 					<div class="panel-body">
 						<a href="#">1.今天浴池停水</a>
+						<br/>
 						<a href="#">2.下午食堂馒头免费</a>
 					</div>
 				</div>
@@ -168,8 +199,34 @@
 
 
 <!-- 底部 -->
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
+<nav class="navbar navbar-default" style="background:#000099">
+ <div class="container-fluid" style="text-align:center">
+ 	<div class="row" style="margin-top:13px">
+ 	    <div class="col-md-1"><a href="sohu.com" class="fl"></a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">搜狐</a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">今日头条</a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">网易</a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">新浪中国</a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">百度</a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">饿了么</a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">淘宝</a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">大众点评</a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">豆瓣电影</a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">风火轮</a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl"></a></div>
+ 	</div>
+ 	<div class="row" >
+ 		<div class="col-md-1"><a href="sohu.com" class="fl"></a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">饿了么</a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">淘宝</a></div>
+ 		<div class="col-md-1"><a href="sohu.com" class="fl">大众点评</a></div>
+ 		
+ 	</div>
+ </div>
+   <hr width="90%"/>
+  <div class="container-fluid" 
+    style="text-align:center;margin-top:-8px; margin-bottom:12px">
+  	 <font color="#FFFFFF" size="5"  face="隶书">莫待无花空折枝</font>
   </div>
 </nav>
 <script type="text/javascript" src="/resource/js/cms_index.js"></script>
