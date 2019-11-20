@@ -224,10 +224,7 @@
  	</div>
  </div>
    <hr width="90%"/>
-  <div class="container-fluid" 
-    style="text-align:center;margin-top:-8px; margin-bottom:12px">
-  	 <font color="#FFFFFF" size="5"  face="隶书">莫待无花空折枝</font>
-  </div>
+ 	<%@include file="./common/footer.jsp"  %>
 </nav>
 <script type="text/javascript" src="/resource/js/cms_index.js"></script>
 

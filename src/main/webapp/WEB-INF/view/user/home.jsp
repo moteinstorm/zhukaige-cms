@@ -11,13 +11,13 @@
  <script type="text/javascript" src="/resource/kindeditor/kindeditor-all.js"></script>
  <title>有花堪折直须折</title>
  
-<body style="background:url(/pic/back2.jpeg) ">
+<body style="background:#3399FF;">
 
 <!-- 导航条 -->
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" style="background:#000099">
 	<%@include  file="../common/top.jsp" %>
 </nav>
-<div class="container">
+<div class="container" style="margin-top:30px;margin-bottom:50px">
 	<div class="row">
 		<div class="col-md-3" >
 			<ul class="list-group homemenu">
@@ -28,7 +28,10 @@
 			 <li class="list-group-item list-group-item-info">个人设置</li>
 			</ul>
 		</div>
-		<div class="col-md-9" id="content">
+		<div class="col-md-9" id="content" 
+		   style="border:solid;min-height:500px;background-color:#FFFFFF;
+		   overflow-x:scroll;overflow-y:scroll
+		   ">
 		
 				<div id="kindEditor" style="display: none">
 				   <!-- 引入kindEditor的样式 -->
@@ -38,8 +41,12 @@
 			
 		</div>
 	</div>
- 
 </div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom" style="background:#000099">
+	<%@include file="../common/footer.jsp"  %>
+</nav>
+
 <script type="text/javascript">
 	$(".homemenu li").click(function(){
 		var url  = $(this).attr("data");
@@ -51,8 +58,6 @@
 	$("#content").load(url);
 	
 </script>
-
-
 
 </body>
 </html>

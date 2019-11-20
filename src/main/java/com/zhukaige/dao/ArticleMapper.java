@@ -113,4 +113,14 @@ public interface ArticleMapper {
 			+ "now(),now(),#{commentCnt},#{articleType})")
 	int add(Article article);
 
+	/**
+	 * 修改文章
+	 * @param article
+	 * @return
+	 */
+	@Update("UPDATE cms_article SET title=#{title},content=#{content},"
+			+ "picture=#{picture},channel_id=#{channelId},"
+			+ "category_id=#{categoryId},status=0,updated=now() WHERE id=#{id}")
+	int update(Article article);
+
 }

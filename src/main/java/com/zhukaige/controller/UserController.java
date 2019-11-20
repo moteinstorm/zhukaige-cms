@@ -9,7 +9,9 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +37,12 @@ import com.zhukaige.service.UserService;
 @RequestMapping("user")
 public class UserController {
 	
+	Logger log = Logger.getLogger(UserController.class);
+	
+	
+	@Value("${upload.path}")
+	String updloadPath;
+	
 	@Autowired
 	UserService userService;
 	
@@ -52,6 +60,7 @@ public class UserController {
 	@RequestMapping(value="hello",method=RequestMethod.GET)
 	public String tet(HttpServletRequest request) {
 		request.setAttribute("info", "hello");
+		
 		return "user/test";
 	}
 	
@@ -145,6 +154,65 @@ public class UserController {
 		return "/user/home";
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @param id  文章id
+	 * @return
+	 */
+	@GetMapping("updateArticle")
+	public String updateArticle(HttpServletRequest request,int id) {
+		
+		// 获取文章的详情 用于回显
+		Article article = articleService.getDetailById(id);
+		request.setAttribute("article", article);
+		request.setAttribute("content1", htmlspecialchars(article.getContent()));
+		
+		System.out.println(" 将要修改文章 " + article);
+		 
+		// 获取所有的频道
+		List<Channel> channels =  channelService.list();
+		request.setAttribute("channels", channels);
+		
+		return "article/update";
+	}
+	
+	/**
+	 * 
+	 * @param request
+	 * @param article
+	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	@PostMapping("updateArticle")
+	@ResponseBody
+	public MsgResult updateArticle(HttpServletRequest request,
+			MultipartFile file, Article article) throws IllegalStateException, IOException {
+		//文章id 是否存在
+		
+		//用户是否有权限修改
+		
+		//
+		if(!file.isEmpty()) {
+			String picUrl = processFile(file);
+			article.setPicture(picUrl);
+		}
+		
+		int result = articleService.update(article);
+		
+		if(result>0) {
+			// 成功
+			return new MsgResult(1,"",null);
+		}else {
+			return new MsgResult(2,"失败",null);
+		}
+		
+	}
+
+	
+	
+	
 	
 	/**
 	 * 进入发表文章的界面
@@ -203,6 +271,9 @@ public class UserController {
 	 */
     private String processFile(MultipartFile file) throws IllegalStateException, IOException {
     	
+    	log.info("updloadPath is "  + updloadPath);
+
+    	
     	//1 求扩展名  "xxx.jpg"
     	String suffixName =  file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
     	String fileNamePre = UUID.randomUUID().toString();
@@ -211,13 +282,13 @@ public class UserController {
     	
     	dateFormat = new SimpleDateFormat("yyyyMMdd");
     	String path = dateFormat.format(new Date());
-    	File pathFile  = new File("d:/pic/" + path);
+    	File pathFile  = new File(updloadPath + "/" + path);
     	if(!pathFile.exists()) {
     		pathFile.mkdirs();
     	}
     	
     	// 最终的新的文件名称
-    	String newFileName = "d:/pic/"+ path + "/" + fileName;
+    	String newFileName = updloadPath + "/"+ path + "/" + fileName;
     	file.transferTo(new File(newFileName));
     	
     	return path + "/" + fileName ;
@@ -258,5 +329,13 @@ public class UserController {
 		CmsAssert.AssertTrue(result>0,"文章删除失败");
 		return new MsgResult(1,"删除成功",null);
 		
+	}
+	
+	private String htmlspecialchars(String str) {
+		str = str.replaceAll("&", "&amp;");
+		str = str.replaceAll("<", "&lt;");
+		str = str.replaceAll(">", "&gt;");
+		str = str.replaceAll("\"", "&quot;");
+		return str;
 	}
 }

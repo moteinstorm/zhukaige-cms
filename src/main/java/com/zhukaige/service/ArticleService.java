@@ -101,6 +101,13 @@ public interface ArticleService {
 	 * @return
 	 */
 	int add(Article article);
+
+	/**
+	 * 
+	 * @param article
+	 * @return
+	 */
+	int update(Article article);
 	
 
 }
