@@ -2,7 +2,9 @@ package com.zhukaige.controller;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,14 +71,34 @@ public class IndexController {
 		return "channelindex";
 	
 	}
+	
+	
 		
 	/**
 	 * 
 	 * @return
 	 */
 	@RequestMapping(value = { "index", "/" })
-	public String index(HttpServletRequest request, @RequestParam(defaultValue = "1") int page) {
+	public String index(HttpServletRequest request,HttpServletResponse reponse, @RequestParam(defaultValue = "1") int page) {
 
+		Cookie cookie = new Cookie("ckey", "cValue");
+		//cookie.setDomain("/");
+		cookie.setMaxAge(2000);
+		cookie.setComment("test22");
+		cookie.setMaxAge(1000);
+		cookie.setVersion(18);
+		reponse.addCookie(cookie);
+		
+		reponse.addCookie(cookie);
+		
+		cookie = new Cookie("ckey1", "cValue1");
+		//cookie.setDomain("/");
+		cookie.setMaxAge(2000);
+		cookie.setComment("test");
+		cookie.setMaxAge(1000);
+		cookie.setVersion(16);
+		reponse.addCookie(cookie);
+		
 		//获取所有的频道
 		List<Channel> channels = channelService.list();
 		request.setAttribute("channels", channels);

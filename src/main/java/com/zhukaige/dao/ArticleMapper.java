@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.type.TypeHandler;
 
 import com.zhukaige.entity.Article;
 
@@ -99,6 +100,8 @@ public interface ArticleMapper {
 	int setHot(@Param("id") int id,@Param("status") int status);
 
 	/**
+	 * typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
+			jdbcType="INTEGER" javaType="com.zhukaige.entity.TypeEnum"
 	 * 添加文章
 	 * @param article
 	 * @return
@@ -110,8 +113,11 @@ public interface ArticleMapper {
 			+ " values("
 			+ " #{title},#{content},#{picture},#{channelId},#{categoryId},"
 			+ "#{userId},#{hits},#{hot},#{status},#{deleted},"
-			+ "now(),now(),#{commentCnt},#{articleType})")
+			+ "now(),now(),#{commentCnt},"
+			+ "#{articleType,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,"
+			+ "jdbcType=INTEGER,javaType=com.zhukaige.entity.TypeEnum})")
 	int add(Article article);
+	//TypeHandler<T>
 
 	/**
 	 * 修改文章
@@ -122,5 +128,9 @@ public interface ArticleMapper {
 			+ "picture=#{picture},channel_id=#{channelId},"
 			+ "category_id=#{categoryId},status=0,updated=now() WHERE id=#{id}")
 	int update(Article article);
+
+	@Insert(" REPLACE cms_favorite(user_id,article_id,created) "
+			+ "VALUES(#{userId},#{articleId},now())")
+	int favorite(@Param("userId") Integer userId,@Param("articleId") int articleId);
 
 }

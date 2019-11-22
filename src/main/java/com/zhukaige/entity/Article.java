@@ -2,6 +2,7 @@ package com.zhukaige.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -52,8 +53,21 @@ public class Article implements Serializable {
 	
 	// 评论的数量
 	private int commentCnt       ;
+	
+	// 该文章的所有的图片
+	private List<Image> imgList;
+	
+	
+	public List<Image> getImgList() {
+		return imgList;
+	}
+	
+	public void setImgList(List<Image> imgList) {
+		this.imgList = imgList;
+	}
+	
 	//文章类型
-	private int articleType      ;
+	private TypeEnum articleType = TypeEnum.HTML ;
 	public Integer getId() {
 		return id;
 	}
@@ -156,10 +170,10 @@ public class Article implements Serializable {
 	public void setCommentCnt(int commentCnt) {
 		this.commentCnt = commentCnt;
 	}
-	public int getArticleType() {
+	public TypeEnum getArticleType() {
 		return articleType;
 	}
-	public void setArticleType(int articleType) {
+	public void setArticleType(TypeEnum articleType) {
 		this.articleType = articleType;
 	}
 	@Override
@@ -168,15 +182,31 @@ public class Article implements Serializable {
 				+ ", channelId=" + channelId + ", channel=" + channel + ", categoryId=" + categoryId + ", category="
 				+ category + ", userId=" + userId + ", user=" + user + ", hits=" + hits + ", hot=" + hot + ", status="
 				+ status + ", deleted=" + deleted + ", created=" + created + ", updated=" + updated + ", commentCnt="
-				+ commentCnt + ", articleType=" + articleType + "]";
+				+ commentCnt + ", imgList=" + imgList + ", articleType=" + articleType + "]";
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((articleType == null) ? 0 : articleType.hashCode());
+		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
+		result = prime * result + ((channel == null) ? 0 : channel.hashCode());
 		result = prime * result + ((channelId == null) ? 0 : channelId.hashCode());
+		result = prime * result + commentCnt;
+		result = prime * result + ((content == null) ? 0 : content.hashCode());
+		result = prime * result + ((created == null) ? 0 : created.hashCode());
+		result = prime * result + deleted;
+		result = prime * result + hits;
+		result = prime * result + hot;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((imgList == null) ? 0 : imgList.hashCode());
+		result = prime * result + ((picture == null) ? 0 : picture.hashCode());
+		result = prime * result + status;
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		result = prime * result + ((updated == null) ? 0 : updated.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 	@Override
@@ -188,20 +218,82 @@ public class Article implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Article other = (Article) obj;
+		if (articleType != other.articleType)
+			return false;
+		if (category == null) {
+			if (other.category != null)
+				return false;
+		} else if (!category.equals(other.category))
+			return false;
 		if (categoryId == null) {
 			if (other.categoryId != null)
 				return false;
 		} else if (!categoryId.equals(other.categoryId))
+			return false;
+		if (channel == null) {
+			if (other.channel != null)
+				return false;
+		} else if (!channel.equals(other.channel))
 			return false;
 		if (channelId == null) {
 			if (other.channelId != null)
 				return false;
 		} else if (!channelId.equals(other.channelId))
 			return false;
+		if (commentCnt != other.commentCnt)
+			return false;
+		if (content == null) {
+			if (other.content != null)
+				return false;
+		} else if (!content.equals(other.content))
+			return false;
+		if (created == null) {
+			if (other.created != null)
+				return false;
+		} else if (!created.equals(other.created))
+			return false;
+		if (deleted != other.deleted)
+			return false;
+		if (hits != other.hits)
+			return false;
+		if (hot != other.hot)
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (imgList == null) {
+			if (other.imgList != null)
+				return false;
+		} else if (!imgList.equals(other.imgList))
+			return false;
+		if (picture == null) {
+			if (other.picture != null)
+				return false;
+		} else if (!picture.equals(other.picture))
+			return false;
+		if (status != other.status)
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (updated == null) {
+			if (other.updated != null)
+				return false;
+		} else if (!updated.equals(other.updated))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
 	}

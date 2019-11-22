@@ -124,4 +124,10 @@ public class ArticleServiceImpl  implements ArticleService{
 		return articleMapper.update(article);
 	}
 
+	@Override
+	public int faverite(Integer userId, int articleId) {
+		// TODO Auto-generated method stub
+		return articleMapper.favorite(userId,articleId);
+	}
+
 }

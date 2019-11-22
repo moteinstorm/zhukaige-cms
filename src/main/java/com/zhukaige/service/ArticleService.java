@@ -108,6 +108,14 @@ public interface ArticleService {
 	 * @return
 	 */
 	int update(Article article);
+
+	/**
+	 * 收藏文章
+	 * @param userId
+	 * @param articleId
+	 * @return
+	 */
+	int faverite(Integer userId, int articleId);
 	
 
 }

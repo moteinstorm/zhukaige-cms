@@ -20,6 +20,7 @@
 			&nbsp;&nbsp;&nbsp;&nbsp; 发布时间：${article.created} 
 			&nbsp;&nbsp;&nbsp;&nbsp; 频道：${article.channel.name} 
 			&nbsp;&nbsp;&nbsp;&nbsp; 分类：${article.category.name} 
+			<a href="javascript:favarite(${article.id})">收藏</a>
 		</h5>
 		<div>
 			${article.content}
@@ -36,6 +37,19 @@
 			<!-- 	显示文章的评论 -->
 		</div>
 	</div>
+	<script type="text/javascript">
+	function favarite(id){
+		
+		$.post("/user/favarite",{id:id},function(msg){
+			if(msg.result==1){
+				alert('收藏成功')
+			}else{
+				alert(msg.errorMsg);
+			}
+		},"json");
+		
+	}
+	</script>
 
 
 </body>

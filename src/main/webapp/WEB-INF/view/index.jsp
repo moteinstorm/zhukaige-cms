@@ -227,6 +227,13 @@
  	<%@include file="./common/footer.jsp"  %>
 </nav>
 <script type="text/javascript" src="/resource/js/cms_index.js"></script>
+<script type="text/javascript">
+
+var cookieStr=document.cookie;
+console.log("cookieStr :" + cookieStr)
+
+
+</script>
 
 </body>
 </html>
