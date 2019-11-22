@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.zhukaige.entity.Article;
+import com.zhukaige.entity.Comment;
 
 public interface ArticleService {
 
@@ -123,6 +124,15 @@ public interface ArticleService {
 	 * @return
 	 */
 	List<Article> getImgArticles(int i);
+
+	int comment(Integer userId, int articleId, String content);
+
+	/*{*
+	 * 获取评论
+	 */
+	PageInfo<Comment> commentlist(int articleId, int page);
+	
+	
 	
 
 }

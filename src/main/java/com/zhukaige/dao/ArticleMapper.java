@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.TypeHandler;
 
 import com.zhukaige.entity.Article;
+import com.zhukaige.entity.Comment;
 
 public interface ArticleMapper {
 
@@ -140,5 +141,28 @@ public interface ArticleMapper {
 	 * @return
 	 */
 	List<Article> getImgArticles(int num);
+
+	/**
+	 * 添加评论
+	 * @param userId
+	 * @param articleId
+	 * @param content
+	 * @return
+	 */
+	@Insert("INSERT INTO cms_comment (articleId,userId,content,created)"
+			+ " VALUES(#{articleId},#{userId},#{content},now())")
+	int addComment(@Param("userId") Integer userId,
+			@Param("articleId") int articleId,
+			@Param("content")  String content);
+
+	/**
+	 * 评论数目自增一
+	 * @param articleId
+	 */
+	@Update("UPDATE cms_article set commentCnt=commentCnt+1 WHERE id=#{value} ")
+	void increaseCommentCnt(int articleId);
+
+	@Select("SELECT * FROM cms_comment WHERE articleId=#{value}")
+	List<Comment> commentlist(int articleId);
 
 }

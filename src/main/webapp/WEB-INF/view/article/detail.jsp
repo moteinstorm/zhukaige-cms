@@ -35,6 +35,16 @@
 		</div>
 		<div>
 			<!-- 	显示文章的评论 -->
+			<div class="row">
+				<textarea rows="5" cols="100%"  id="commentContent">
+				
+				</textarea>
+				<input type="button" onclick="comment()" value="发表评论">
+			</div>
+			<div class="container" id="commentList">
+			
+			</div>
+			
 		</div>
 	</div>
 	<script type="text/javascript">
@@ -49,8 +59,26 @@
 		},"json");
 		
 	}
+	
+	function comment(){
+		$.post("/user/comment",{id:'${article.id}',content:$("#commentContent").val()},
+			function(msg){
+				if(msg.result==1){
+					alert('评论成功')
+				}else{
+					alert(msg.errorMsg);
+				}
+		},
+		"json"
+		)
+	}
+	
+	function showComments(){
+		$("#commentList").load('/article/commentlist?id=${article.id}');
+	}
+	showComments();
+	
 	</script>
-
 
 </body>
 </html>

@@ -7,13 +7,16 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.zhukaige.common.CmsAssert;
 import com.zhukaige.common.MsgResult;
 import com.zhukaige.entity.Article;
 import com.zhukaige.entity.Category;
+import com.zhukaige.entity.Comment;
 import com.zhukaige.entity.Image;
 import com.zhukaige.entity.TypeEnum;
 import com.zhukaige.service.ArticleService;
@@ -59,6 +62,18 @@ public class ArticleController {
 		//List<Category> categories =  
 		List<Category> categories = catService.listByChannelId(chnId);
 		return new MsgResult(1, "",  categories);
+		
+	}
+	
+	@RequestMapping("commentlist")
+	//@ResponseBody
+	public String commentlist(HttpServletRequest request, int id,
+			@RequestParam(defaultValue="1") int page) {
+		
+		PageInfo<Comment> pageComment =  articleService.commentlist(id,page);
+		request.setAttribute("pageComment", pageComment);
+		return "article/comments";
+		//return new MsgResult(1,"获取成功",pageComment);
 		
 	}
 	

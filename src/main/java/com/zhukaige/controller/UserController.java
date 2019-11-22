@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.apache.ibatis.type.JdbcType;
 import org.apache.log4j.Logger;
@@ -406,10 +407,30 @@ public class UserController {
 		}
 		
 		
-		
-		
-		
 	}
+	
+	/**
+	 * comment
+	 * @param request
+	 * @param id
+	 * @param content
+	 * @return
+	 */
+	@RequestMapping("comment")
+	@ResponseBody
+	public MsgResult comment(HttpServletRequest request, int id,String content) {
+		
+		User loginUser = (User)request.getSession().getAttribute(ConstantClass.USER_KEY);
+		CmsAssert.AssertTrue(loginUser!=null, "亲，您尚未登录");
+		
+		int result = articleService.comment(loginUser.getId(),id,content);
+		CmsAssert.AssertTrue(result>0, "亲，评论失败了！！");
+		return new MsgResult(1,"评论成功","");
+	}
+	
+	
+	
+	
 	
 	private String htmlspecialchars(String str) {
 		str = str.replaceAll("&", "&amp;");
