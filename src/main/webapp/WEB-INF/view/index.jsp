@@ -166,6 +166,20 @@
 			
 			<div class="col-md-2" style=" margin-top:30px ;minheight:200px" >
 			
+			
+			<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">图片文章</h3>
+					</div>
+					<div class="panel-body">
+						<c:forEach items="${imgArticles}" var="article" varStatus="index"> 
+							<a href="javascript:showArticle(${article.id})">${index.index}. ${article.title}</a>
+							<br/>
+						</c:forEach>
+					</div>
+				</div>
+				
+			
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<h3 class="panel-title">公告</h3>

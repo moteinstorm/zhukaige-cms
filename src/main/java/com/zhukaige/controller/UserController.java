@@ -395,6 +395,7 @@ public class UserController {
 		//设置作者
 		article.setUserId(loginUser.getId());
 		article.setContent(gson.toJson(list));
+		//设置文章类型 是图片
 		article.setArticleType(TypeEnum.IMG);
 		
 		int add = articleService.add(article);

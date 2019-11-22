@@ -6,7 +6,7 @@
 	<form id="form" >
 		<div class="input-group">
 			<span class="input-group-addon">文章标题</span>
-		  <input type="text" class="form-control" placeholder="文章标题" aria-describedby="basic-addon2">
+		  <input type="text" name="title" class="form-control" placeholder="文章标题" aria-describedby="basic-addon2">
 		</div>
 		<div class="input-group">
 			 <span class="input-group-addon">频道</span>

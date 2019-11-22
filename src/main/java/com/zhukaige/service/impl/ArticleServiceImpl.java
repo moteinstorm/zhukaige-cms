@@ -130,4 +130,10 @@ public class ArticleServiceImpl  implements ArticleService{
 		return articleMapper.favorite(userId,articleId);
 	}
 
+	@Override
+	public List<Article> getImgArticles(int num) {
+		// TODO Auto-generated method stub
+		return articleMapper.getImgArticles(num);
+	}
+
 }

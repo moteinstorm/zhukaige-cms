@@ -107,8 +107,14 @@ public class IndexController {
 		
 		List<Article> newArticles = articleService.getNewArticles(5);
 		
+		// 获取最新图片文章
+		List<Article> imgArticles = articleService.getImgArticles(10);
+		
+		
 		request.setAttribute("hotList", hotList);
 		request.setAttribute("newArticles", newArticles);
+		
+		request.setAttribute("imgArticles", imgArticles);
 		
 		
 		

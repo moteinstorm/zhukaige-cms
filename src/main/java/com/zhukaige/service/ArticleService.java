@@ -116,6 +116,13 @@ public interface ArticleService {
 	 * @return
 	 */
 	int faverite(Integer userId, int articleId);
+
+	/**
+	 * 获取最新的10篇图片文章
+	 * @param i 个数
+	 * @return
+	 */
+	List<Article> getImgArticles(int i);
 	
 
 }

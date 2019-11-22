@@ -100,8 +100,9 @@ public interface ArticleMapper {
 	int setHot(@Param("id") int id,@Param("status") int status);
 
 	/**
-	 * typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
-			jdbcType="INTEGER" javaType="com.zhukaige.entity.TypeEnum"
+	 * 
+	 * #{articleType,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler,"
+			+ "jdbcType=INTEGER,javaType=com.zhukaige.entity.TypeEnum}
 	 * 添加文章
 	 * @param article
 	 * @return
@@ -132,5 +133,12 @@ public interface ArticleMapper {
 	@Insert(" REPLACE cms_favorite(user_id,article_id,created) "
 			+ "VALUES(#{userId},#{articleId},now())")
 	int favorite(@Param("userId") Integer userId,@Param("articleId") int articleId);
+
+	/**
+	 * 获取10篇图片文章
+	 * @param num
+	 * @return
+	 */
+	List<Article> getImgArticles(int num);
 
 }

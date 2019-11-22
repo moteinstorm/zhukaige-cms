@@ -9,10 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.zhukaige.common.CmsAssert;
 import com.zhukaige.common.MsgResult;
 import com.zhukaige.entity.Article;
 import com.zhukaige.entity.Category;
+import com.zhukaige.entity.Image;
+import com.zhukaige.entity.TypeEnum;
 import com.zhukaige.service.ArticleService;
 import com.zhukaige.service.CategoryService;
 
@@ -31,8 +34,20 @@ public class ArticleController {
 		
 		Article article = articleService.getById(id); 
 		CmsAssert.AssertTrueHtml(article!=null, "文章不存在");
+		
+		
 		request.setAttribute("article",article);
-		return "article/detail";
+		if(article.getArticleType()==TypeEnum.HTML)
+			return "article/detail";
+		else {
+			Gson gson = new Gson();
+			// 文章内容转换成集合对象
+			List<Image> imgs = gson.fromJson(article.getContent(), List.class);
+			article.setImgList(imgs);
+			System.out.println(" article is "  + article);
+			return "article/detailimg";
+		}
+		
 		
 	}
 	
