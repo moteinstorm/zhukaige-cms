@@ -2,7 +2,6 @@ package com.zhukaige.controller;
 
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,9 +14,11 @@ import com.github.pagehelper.PageInfo;
 import com.zhukaige.entity.Article;
 import com.zhukaige.entity.Category;
 import com.zhukaige.entity.Channel;
+import com.zhukaige.entity.Link;
 import com.zhukaige.service.ArticleService;
 import com.zhukaige.service.CategoryService;
 import com.zhukaige.service.ChannelService;
+import com.zhukaige.service.LinkService;
 
 @Controller
 public class IndexController {
@@ -35,6 +36,9 @@ public class IndexController {
 	
 	@Autowired
 	ArticleService articleService;
+	
+	@Autowired
+	LinkService linkService;
 
 	
 	/**
@@ -81,23 +85,7 @@ public class IndexController {
 	@RequestMapping(value = { "index", "/" })
 	public String index(HttpServletRequest request,HttpServletResponse reponse, @RequestParam(defaultValue = "1") int page) {
 
-		Cookie cookie = new Cookie("ckey", "cValue");
-		//cookie.setDomain("/");
-		cookie.setMaxAge(2000);
-		cookie.setComment("test22");
-		cookie.setMaxAge(1000);
-		cookie.setVersion(18);
-		reponse.addCookie(cookie);
 		
-		reponse.addCookie(cookie);
-		
-		cookie = new Cookie("ckey1", "cValue1");
-		//cookie.setDomain("/");
-		cookie.setMaxAge(2000);
-		cookie.setComment("test");
-		cookie.setMaxAge(1000);
-		cookie.setVersion(16);
-		reponse.addCookie(cookie);
 		
 		//获取所有的频道
 		List<Channel> channels = channelService.list();
@@ -110,11 +98,22 @@ public class IndexController {
 		// 获取最新图片文章
 		List<Article> imgArticles = articleService.getImgArticles(10);
 		
+		// 友情链接
+	   PageInfo<Link> info=  linkService.list(1);
+	   List<Link> linkList =  info.getList();
+	   
+	   
+		
+		
 		
 		request.setAttribute("hotList", hotList);
 		request.setAttribute("newArticles", newArticles);
 		
 		request.setAttribute("imgArticles", imgArticles);
+		
+		request.setAttribute("linkList", linkList);
+		
+		
 		
 		
 		

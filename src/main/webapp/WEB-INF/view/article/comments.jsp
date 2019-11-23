@@ -6,6 +6,8 @@
 	<div class="row">
 		${comment.content}
 		<br>
-		${comment.userId}
+		${comment.userId}  &nbsp;&nbsp;&nbsp;&nbsp;
+		<fmt:formatDate value="${comment.created}" pattern="yyy-MM-dd HH:mm:ss"/>
+		
 	</div>
 </c:forEach>    

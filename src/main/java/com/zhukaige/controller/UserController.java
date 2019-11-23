@@ -432,6 +432,9 @@ public class UserController {
 	
 	
 	
+	
+	
+	
 	private String htmlspecialchars(String str) {
 		str = str.replaceAll("&", "&amp;");
 		str = str.replaceAll("<", "&lt;");
