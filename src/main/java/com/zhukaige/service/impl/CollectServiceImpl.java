@@ -1,13 +1,15 @@
 package com.zhukaige.service.impl;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.zhukaige.dao.LinkMapper;
-import com.zhukaige.entity.Link;
-import com.zhukaige.service.LinkService;
+import com.zhukaige.dao.CollectMapper;
+import com.zhukaige.entity.Collect;
+import com.zhukaige.service.CollectService;
 
 /**
  * 
@@ -15,42 +17,41 @@ import com.zhukaige.service.LinkService;
  *
  */
 @Service
-public class LinkServiceImpl  implements LinkService{
+public class CollectServiceImpl  implements CollectService{
 	
 	@Autowired
-	LinkMapper linkMapper;
+	CollectMapper collectMapper;
 
 	@Override
-	public int add(Link link) {
+	public int add(Collect collect) {
 		// TODO Auto-generated method stub
-		return linkMapper.add(link);
+		return collectMapper.add(collect);
 		
 	}
 
 	@Override
-	public PageInfo list(int page) {
+	public PageInfo list(int userId,int page) {
 		// TODO Auto-generated method stub
 		PageHelper.startPage(page,10);
-		
-		return new PageInfo<Link>(linkMapper.list());
+		return new PageInfo<Collect>(collectMapper.list(userId));
 	}
 
 	@Override
 	public int delete(int id) {
 		// TODO Auto-generated method stub
-		return linkMapper.delete(id);
+		return collectMapper.delete(id);
 	}
 
 	@Override
-	public Link get(int id) {
+	public Collect get(int id) {
 		// TODO Auto-generated method stub
-		return linkMapper.get(id);
+		return collectMapper.get(id);
 	}
 
 	@Override
-	public int update(Link link) {
+	public int update(Collect collect) {
 		// TODO Auto-generated method stub
-		return linkMapper.update(link);
+		return collectMapper.update(collect);
 		
 	}
 

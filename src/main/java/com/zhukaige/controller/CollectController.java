@@ -14,22 +14,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.zhukaige.common.ConstantClass;
 import com.zhukaige.common.MsgResult;
-import com.zhukaige.entity.Link;
-import com.zhukaige.service.LinkService;
+import com.zhukaige.entity.Collect;
+import com.zhukaige.entity.User;
+import com.zhukaige.service.CollectService;
 import com.zhuzhiguang.StringUtils;
 
 /**
- * 
+ *  收藏
  * @author zhuzg
  *
  */
 @Controller
-@RequestMapping("link")
-public class LinkController {
+@RequestMapping("collect")
+public class CollectController {
 	
 	@Autowired
-	LinkService linkService;
+	CollectService collectService;
 	
 	/**
 	 * 
@@ -41,9 +43,12 @@ public class LinkController {
 	public String list(HttpServletRequest request, 
 			@RequestParam(defaultValue="1") int page) {
 		
-		PageInfo info = linkService.list(page);
+		User loginUser=(User)request.getSession().getAttribute(ConstantClass.USER_KEY);
+		
+		
+		PageInfo info = collectService.list(loginUser.getId(), page);
 		request.setAttribute("info", info);
-		return "amdin/link/list";
+		return "user/collect/list";
 		
 		
 	}
@@ -55,22 +60,22 @@ public class LinkController {
 	 */
 	@GetMapping("add")
 	public String add(HttpServletRequest request) {
-		request.setAttribute("link", new Link());
-		return "amdin/link/add";	 
+		request.setAttribute("collect", new Collect());
+		return "user/collect/add";	 
 	}
 	
 	
 	@GetMapping("update")
-	public String add(HttpServletRequest request,int id) {
-		request.setAttribute("link", linkService.get(id));
-		return "amdin/link/update";	 
+	public String update(HttpServletRequest request,int id) {
+		request.setAttribute("collect", collectService.get(id));
+		return "user/collect/update";	 
 	}
 	
 	
 	@RequestMapping("delete")
 	@ResponseBody
 	public MsgResult delete(HttpServletRequest request,int id) {
-		int result = linkService.delete(id);
+		int result = collectService.delete(id);
 		if(result<1)
 			return new MsgResult(2,"删除失败",null);
 		
@@ -81,27 +86,27 @@ public class LinkController {
 	/**
 	 * 
 	 * @param request
-	 * @param link
+	 * @param collect
 	 * @param result
 	 * @return
 	 */
 	@PostMapping("update")
 	public String update(HttpServletRequest request,
-			@Valid  @ModelAttribute("link") Link link,
+			@Valid  @ModelAttribute("collect") Collect collect,
 			BindingResult result
 			) {
 		
-		if(!StringUtils.isHttpUrl(link.getUrl())) {
+		if(!StringUtils.isHttpUrl(collect.getUrl())) {
 			result.rejectValue("url", "不是合法的url", "不是合法的url");
 		}
 		
 		// 有错误 还在原来的页面
 		if(result.hasErrors()) {
-			//request.setAttribute("link", link);
-			return "amdin/link/update";	
+			//request.setAttribute("collect", collect);
+			return "user/collect/update";	
 		}
 		
-		linkService.update(link);
+		collectService.update(collect);
 		
 		// 没有错误跳转到列表页面
 		return "redirect:list";
@@ -111,27 +116,30 @@ public class LinkController {
 	/**
 	 * 
 	 * @param request
-	 * @param link
+	 * @param collect
 	 * @param result
 	 * @return
 	 */
 	@PostMapping("add")
 	public String add(HttpServletRequest request,
-			@Valid  @ModelAttribute("link") Link link,
+			@Valid  @ModelAttribute("collect") Collect collect,
 			BindingResult result
 			) {
 		
-		if(!StringUtils.isHttpUrl(link.getUrl())) {
+		if(!StringUtils.isHttpUrl(collect.getUrl())) {
 			result.rejectValue("url", "不是合法的url", "不是合法的url");
 		}
 		
 		// 有错误 还在原来的页面
 		if(result.hasErrors()) {
 			
-			request.setAttribute("link", link);
-			return "amdin/link/add";	
+			request.setAttribute("collect", collect);
+			return "user/collect/add";	
 		}
-		linkService.add(link);
+		
+		User loginUser=(User)request.getSession().getAttribute(ConstantClass.USER_KEY);
+		collect.setUserId(loginUser.getId());
+		collectService.add(collect);
 		
 		// 没有错误跳转到列表页面
 		return "redirect:list";

@@ -8,8 +8,6 @@
 
 </script>
 
-
-
 <div class="table-responsive">
   <table class="table">
     <caption>友情链接</caption>
@@ -24,16 +22,15 @@
        </tr>
     </thead>
     <tbody>
-    	<c:forEach items="${info.list}"  var="link">
+    	<c:forEach items="${info.list}"  var="collect">
     	  <tr>
-	        <td>${link.id}</td>
-	        <td>${link.name}</td>
-	        <td>${link.url}</td>
-	        <td><fmt:formatDate pattern="YYYY年MM月dd号 HH:mm:ss" value="${link.created}"></fmt:formatDate></td>
-	         <td> 
-	             <input type="button" value="删除" onclick="del(${link.id})">
+	        <td>${collect.id}</td>
+	        <td>${collect.name}</td>
+	        <td>${collect.url}</td>
+	        <td><fmt:formatDate pattern="YYYY年MM月dd号 HH:mm:ss" value="${collect.created}"></fmt:formatDate></td>
+	         <td> <input type="button" value="修改" onclick="update(${collect.id})">
 	             &nbsp;
-	             <input type="button" value="修改" onclick="update(${link.id})">
+	             <input type="button" value="删除" onclick="del(${collect.id})">
 	         </td>
 	      </tr>
       </c:forEach>
@@ -56,24 +53,24 @@
 
 <script type="text/javascript">
 	function goPage(page){
-		var url="/link/list?page="+page;
+		var url="/collect/list?page="+page;
 		$("#content").load(url);
 	}
 	
 	function add(){
-		$("#content").load("/link/add")
+		$("#content").load("/collect/add")
 	}
 	/**
 	 刷新当前页
 	*/
 	function refresh(){
 		
-		var url="/link/list?page=${info.pageNum}";
+		var url="/collect/list?page=${info.pageNum}";
 		$("#content").load(url);
 	}
 	
 	function del(id){
-		$.get("/link/delete",{id:id},function(msg){
+		$.get("/collect/delete",{id:id},function(msg){
 			if(msg.result==1){
 				alert("删除成功")
 				refresh()
@@ -83,7 +80,7 @@
 	}
 	
 	function update(id){
-		$("#content").load("/link/update?id="+id)
+		$("#content").load("/collect/update?id="+id)
 	}
 </script>
     

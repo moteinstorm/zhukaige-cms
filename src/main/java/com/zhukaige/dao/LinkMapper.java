@@ -2,8 +2,10 @@ package com.zhukaige.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.zhukaige.entity.Link;
 /**
@@ -28,5 +30,30 @@ public interface LinkMapper {
 	 */
 	@Select("SELECT * FROM cms_link ORDER BY created DESC")
 	List<Link> list();
+
+	/**
+	 * 
+	 * @param link
+	 * @return
+	 */
+	@Update("UPDATE cms_link set url=#{url},name=#{name} "
+			+ "	WHERE id=#{id}")
+	int  update(Link link);
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Select("SELECT * FROM cms_link WHERE id=#{value} ")
+	Link get(int id);
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Delete("DELETE  FROM cms_link WHERE id=#{value} ")
+	int delete(int id);
 
 }

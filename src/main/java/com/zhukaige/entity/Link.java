@@ -9,8 +9,8 @@ public class Link {
 	
 	int  id;
 	
-	@Length(max=32,min=5,message="长度超出范围")
-	@URL
+	@Length(max=255,min=5,message="长度超出范围")
+	//@URL
 	String url;
 	
 	@Length(max=10,min=2)

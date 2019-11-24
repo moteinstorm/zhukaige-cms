@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 
-import org.apache.ibatis.type.JdbcType;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
 import com.zhukaige.common.CmsAssert;
@@ -32,11 +29,13 @@ import com.zhukaige.common.ConstantClass;
 import com.zhukaige.common.MsgResult;
 import com.zhukaige.entity.Article;
 import com.zhukaige.entity.Channel;
+import com.zhukaige.entity.Collect;
 import com.zhukaige.entity.Image;
 import com.zhukaige.entity.TypeEnum;
 import com.zhukaige.entity.User;
 import com.zhukaige.service.ArticleService;
 import com.zhukaige.service.ChannelService;
+import com.zhukaige.service.CollectService;
 import com.zhukaige.service.UserService;
 
 
@@ -55,6 +54,9 @@ public class UserController {
 	
 	@Autowired
 	ArticleService articleService;
+	
+	@Autowired
+	CollectService collectService;
 	
 	
 	@Autowired
@@ -429,6 +431,31 @@ public class UserController {
 	}
 	
 	
+	
+	/**
+	 * 
+	 * @param request
+	 * @param collect
+	 * @return
+	 */
+	@RequestMapping("collect")
+	@ResponseBody
+	public MsgResult collect(HttpServletRequest request, Collect collect) {
+		
+		//CmsAssert.AssertTrue(id>0, "id 不合法");
+		User loginUser = (User)request.getSession().getAttribute(ConstantClass.USER_KEY);
+		CmsAssert.AssertTrue(loginUser!=null, "亲，您尚未登录！！");
+		
+		if(collect.getName().length()>20) {
+			collect.setName(collect.getName().substring(0, 20) + "...");
+		}
+		collect.setUserId(loginUser.getId());
+		int result = collectService.add(collect);
+		
+		CmsAssert.AssertTrue(result>0, "很遗憾，加入收藏失败！！");
+		return new MsgResult(1,"恭喜，收藏成功",null);
+		
+	}
 	
 	
 	

@@ -21,6 +21,8 @@
 			&nbsp;&nbsp;&nbsp;&nbsp; 频道：${article.channel.name} 
 			&nbsp;&nbsp;&nbsp;&nbsp; 分类：${article.category.name} 
 			<a href="javascript:favarite(${article.id})">收藏</a>
+			&nbsp;&nbsp;&nbsp;&nbsp; 
+			<a href="javascript:collect(${article.id})">加入我的收藏夹</a>
 		</h5>
 		<div>
 			${article.content}
@@ -59,6 +61,22 @@
 		},"json");
 		
 	}
+	
+	// 将本篇放入我的收藏夹中
+	function collect(id){
+		
+		 var url = window.location.href;
+		 
+		$.post("/user/collect",{name:'${article.title}',url:url},function(msg){
+			if(msg.result==1){
+				alert('加入收藏夹成功')
+			}else{
+				alert(msg.errorMsg);
+			}
+		},"json");
+		
+	}
+	
 	
 	function comment(){
 		$.post("/user/comment",{id:'${article.id}',content:$("#commentContent").val()},
