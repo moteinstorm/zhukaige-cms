@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<link rel="stylesheet" href="/resource/kindeditor/themes/default/default.css" />
+	<link rel="stylesheet" href="/resource/kindeditor/plugins/code/prettify.css" />
+	<script charset="utf-8" src="/resource/kindeditor/plugins/code/prettify.js"></script>
+	<script charset="utf-8" src="/resource/kindeditor/kindeditor-all.js"></script>
+    <script charset="utf-8" src="/resource/kindeditor/lang/zh-CN.js"></script>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -7,11 +14,15 @@
 
 %>
 <script>
+      
+       $(document).ready( function(){
 		KindEditor.ready(function(K) {
-			window.editor1 = K.create('textarea[name="content1"]', {
+			 editor = K.create('textarea[name="content1"]', {
 			cssPath : '/resource/kindeditor/plugins/code/prettify.css',
-			uploadJson : '/resource/kindeditor/jsp/upload_json.jsp',
-			fileManagerJson : '/resource/kindeditor/jsp/file_manager_json.jsp',
+			//uploadJson : '/resource/kindeditor/jsp/upload_json.jsp',
+			uploadJson:'/file/upload',
+			fileManagerJson:'/file/manager',
+			//fileManagerJson : '/resource/kindeditor/jsp/file_manager_json.jsp',
 			allowFileManager : true,
 				afterCreate : function() {
 					var self = this;
@@ -25,12 +36,13 @@
 					});
 				}
 			});
-			prettyPrint();
+			//prettyPrint();
 		});
-		function query(){
-		  alert(editor1.html())
-			//alert( $("[name='content1']").attr("src"))
-		} 
+       });
+		
+		editor.readonly(false); 
+
+	
 	</script>
 	<div style="margin:10px 10px  10px  10px ; overflow-y:">
 	 <form action="" id="form">
@@ -41,10 +53,13 @@
 
 
 		<div class="form-group row ">
-			<textarea name="content1" cols="100" rows="8"
-				style="width: 860px; height: 250px; visibility: hidden;"><%=htmlspecialchars(htmlData)%></textarea>
+			<textarea name="content1"  id="content1" cols="100" rows="8" 
+			style="width:700px;height:200px;visibility:hidden;">
+			<%=htmlspecialchars(htmlData)%></textarea>
 			<br />
 		</div>
+		
+		
 		<div class="form-group row ">
 			<label for="title">文章标题图片</label> <input type="file"
 				class="form-control" id="file" name="file">
@@ -136,9 +151,7 @@ function publish(){
 		
 }
 
-
-
-
+	
 </script>
 <%!
 private String htmlspecialchars(String str) {

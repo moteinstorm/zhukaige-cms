@@ -122,5 +122,20 @@ public class IndexController {
 		
 		return "index";
 	}
+	
+	
+	
+	/**
+	 *  加载更多 
+	 * @return
+	 */
+	@RequestMapping(value = "hotmore" )
+	public String index(HttpServletRequest request,
+			@RequestParam(defaultValue = "1") int page) {
+		
+		PageInfo<Article> hotList = articleService.hotList(page);
+		request.setAttribute("hotList", hotList);
+		return "hotmore";
+	}
 
 }

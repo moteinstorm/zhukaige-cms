@@ -123,7 +123,7 @@
 					</div>
 					
 					<!-- 放文章的列表 -->
-					<div >
+					<div id="content" style="overflow-y:scroll;height:300px" >
 						<c:forEach items="${hotList.list}" var="article" >
 						<div class=row style="padding-bottom:1px">
 							<hr width="88%" style="background-color:#D2691E;border:none;height:1px">
@@ -139,7 +139,12 @@
 							</div>
 						</div>
 						</c:forEach>
+						</div>
 						
+					 <div>
+						<div class="row" style="text-align: center;padding-top:1px">
+							<input  type="button" value="more" onclick="loadmore()">
+						</div>
 						
 						<div class="row" style="text-align: center;padding-top:1px">
 							<hr width="88%" style="background-color:#D2691E;border:none;height:1px">
@@ -230,8 +235,30 @@
 </nav>
 <script type="text/javascript" src="/resource/js/cms_index.js"></script>
 <script type="text/javascript">
+  var currentPage = 1;
 
-
+  $("#content").unbind("scroll").bind("scroll", function (e) {
+     var sum = this.scrollHeight;
+     if (sum <= $(this).scrollTop() + $(this).height()) {
+        // 加载更多
+        alert('加载更多')
+        loadmore();
+    }
+  }
+  )
+    
+  function loadmore(){
+		
+	  alert(currentPage)
+  
+	  $.get("/hotmore?page="+(currentPage+1),{},function(html){
+		  
+	  
+		  $("#content").append(html);
+		  
+	  }	  
+	  );
+  }
 
 
 </script>

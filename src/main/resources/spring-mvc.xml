@@ -30,6 +30,7 @@
 			<mvc:exclude-mapping path="/user/login"/>
 			<mvc:exclude-mapping path="/user/register"/>
 			<mvc:exclude-mapping path="/"/>
+			<mvc:exclude-mapping path="/hotmore"/>
 			<mvc:exclude-mapping path="/index"/>
 			<mvc:exclude-mapping path="/pic/**"/>
 			<mvc:exclude-mapping path="/user/comment"/>			
@@ -37,6 +38,8 @@
 			<mvc:exclude-mapping path="/article/**"/>
 			<mvc:exclude-mapping path="/user/favarite"/>
 			<mvc:exclude-mapping path="/user/collect"/>
+			<mvc:exclude-mapping path="/file/upload"/>
+			<mvc:exclude-mapping path="/file/manager"/>
 			
 			<bean class="com.zhukaige.web.UserInterceptor"></bean>
 		</mvc:interceptor>

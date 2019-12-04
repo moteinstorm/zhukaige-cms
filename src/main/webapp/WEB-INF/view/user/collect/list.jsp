@@ -25,7 +25,7 @@
     	<c:forEach items="${info.list}"  var="collect">
     	  <tr>
 	        <td>${collect.id}</td>
-	        <td>${collect.name}</td>
+	        <td><a href="${collect.url}" target="_blank"> ${collect.name} </a></td>
 	        <td>${collect.url}</td>
 	        <td><fmt:formatDate pattern="YYYY年MM月dd号 HH:mm:ss" value="${collect.created}"></fmt:formatDate></td>
 	         <td> <input type="button" value="修改" onclick="update(${collect.id})">

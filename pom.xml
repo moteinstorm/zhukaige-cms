@@ -4,6 +4,7 @@
   <artifactId>zhukaige-cms</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+  
   <description>这是我们公司打造大一个非常优秀的CMS系统</description>
   
  <!-- 定义主要版本号 -->
